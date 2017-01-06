@@ -1,0 +1,92 @@
+var express = require('express');
+var request = require('request');
+var path = require('path');
+var morgan = require('morgan');
+var colors = require('colors');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var compileSass = require('express-compile-sass');
+var port = process.env.PORT || 9000;
+var session = require("express-session");
+var app = express();
+
+app.use(morgan('dev'));
+var sessionConfig = {
+	secret:'CookieMonster', // Secret name for decoding secret and such
+	resave:false, // Don't resave session if no changes were made
+	saveUninitialized: true, // Don't save session if there was nothing initialized
+	name:'myCookie', // Sets a custom cookie name
+	cookie: {
+		secure: false, // This need to be true, but only on HTTPS
+		httpOnly:false, // Forces cookies to only be used over http
+		maxAge: 3600000
+	}
+}
+
+app.use(session(sessionConfig));
+
+
+app.use(compileSass({
+    root: 'public',
+    sourceMap: true, // Includes Base64 encoded source maps in output css 
+    sourceComments: true, // Includes source comments in output css 
+    watchFiles: true, // Watches sass files and updates mtime on main files for each change 
+    logToConsole: false // If true, will log to console.error on errors 
+}));
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'bower_components')));
+
+
+//enable mongoose
+require('./server/config/mongoose.js');
+// routes
+require('./server/config/routes.js')(app);
+
+
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+var server = app.listen(port, function(){
+	console.log("running on port", port);
+})
+
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function (socket) {
+  console.log("WE ARE USING SOCKETS!");
+  console.log(socket.id);
+    //all the socket code goes in here!
+  socket.on("button_clicked", function (data){
+    console.log('Someone clicked a button!  Reason: ' + data.reason);
+      socket.emit('server_response', {response: "sockets are the best!"});
+  })
+});
+
+
+ 

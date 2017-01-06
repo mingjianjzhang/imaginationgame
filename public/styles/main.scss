@@ -1,0 +1,63 @@
+/*$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+*/
+
+*{
+  padding: 0;
+  margin: 0;
+}
+
+.apiSearch {
+  border: 1px solid black;
+  padding: 10px 20px;
+}
+
+.marvelInput {
+  outline-color: red;
+  border: red solid;
+}
+.comicVineInput {
+  outline-color: green;
+  border: green solid;
+}
+.marvelImage {
+	width: 300px;
+}
+
+.characterPanel {
+	margin-left: 10%;
+	width: 60%;
+	display: inline-block;
+	vertical-align: top;
+}
+.iconic {
+	width: 20%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+
+.characterSelect {
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.indented {
+	margin-left: 10px;
+}
+.characterSelect li {
+	width: 20%;
+	vertical-align: top;
+	display: inline-block;
+}
+
+.moves {
+	width: 50%;
+	margin-bottom: 10px;
+	list-style-type: none;
+	border: 1px solid black;
+	padding: 10px;
+}
+.form-control:focus {
+	outline: none;
+}

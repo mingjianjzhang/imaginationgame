@@ -1,0 +1,66 @@
+<div class="header">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#/">Create a Team</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li><a ng-href="#!/dashboard/">Dashboard</a></li>
+              <li><a ng-href="#!/">Challenge a Friend</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+    		<h1 class="text-center">Step 1: Choose your Characters</h1>
+    		<p> {{team.userTeam.name}}</p>
+		<div class="row">
+			<div class="col-md-6">
+				<button class="btn btn-danger" ng-click="team.setAPI('Marvel')">Marvel</button>
+				<button class="btn btn-success" ng-click="team.setAPI('ComicVine')">ComicVine</button>
+				<div class="form-group">
+					<label for="characterSearch">Find a Character </label>
+					<input type="text" class="form-control" id="characterSearch" ng-model="team.character" ng-class="{marvelInput: team.marvelSearch, comicVineInput: team.comicSearch}">
+				</div>
+				<button class="btn btn-primary" ng-click="team.getCharacter(team.character, team.api)">Search</button>
+			<div ng-show="team.completedSearch">
+				<h4>{{team.newChar.name}}</h4>
+				<img class="pull-left" src="{{team.newChar.image}}" ng-class="{marvelImage: team.marvelImage}"><p>{{team.newChar.description}}</p>
+				<button class="btn btn-info" ng-click="team.addToTeam()">Add to Team</button>
+			</div>
+			<p class="bg-danger" ng-show="team.failedSearch">No results found. Try again </p>
+			</div>
+			<div class="col-md-6">
+				<h4> Current Team </h4>
+				<div ng-repeat="char in team.newTeam.members track by $index" style="margin-bottom: 30px">
+					<div class="iconic">
+						<img class="img-responsive" src="{{char.image}}" />
+						<button class="btn btn-danger" ng-click="team.removeFromTeam($index)"> Remove </button> 
+					</div>
+					<div class="characterPanel">
+						<p> {{char.name}} : {{$index}} </p>
+						<p> {{ char.description }} </p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="teamName">Team Name </label>
+					<input class="form-control" id="teamName" ng-model="team.newTeam.name">
+					<button class="btn btn-primary" ng-click="team.create(team.newTeam)"> Create Team </button>
+		
+				</div>
+			</div>
+		</div>
+    </div>
+
