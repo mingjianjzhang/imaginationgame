@@ -8,7 +8,7 @@
  * Controller of the imaginationgameApp
  */
 angular.module('imaginationgameApp')
-  .controller('MainCtrl', ['$rootScope', '$location', 'SessionFactory', 'socket', function ($rootScope, $location, SessionFactory, Marvel, socket) {
+  .controller('MainCtrl', ['$rootScope', '$location', 'Session', 'socket', function ($rootScope, $location, Session, Marvel, socket) {
   	var $ctrl = this;
  //  	socket.emit("button_clicked", {reason: "from the angular factory"})
 	// socket.on('server_response', function(data){
