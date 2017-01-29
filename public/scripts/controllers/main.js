@@ -8,7 +8,7 @@
  * Controller of the imaginationgameApp
  */
 angular.module('imaginationgameApp')
-  .controller('MainCtrl', ['$rootScope', '$location', 'SessionFactory', 'socket', function ($rootScope, $location, SessionFactory, Marvel, socket) {
+  .controller('MainCtrl', ['$rootScope', '$location', 'Session', 'socket', function ($rootScope, $location, Session, Marvel, socket) {
   	var $ctrl = this;
  //  	socket.emit("button_clicked", {reason: "from the angular factory"})
 	// socket.on('server_response', function(data){
@@ -17,7 +17,7 @@ angular.module('imaginationgameApp')
 
 
 	this.loginUser = function(creds){
-		SessionFactory.login(creds, function(data){
+		Session.login(creds, function(data){
 			if (data.hasOwnProperty('errors')) {
 				$ctrl.loginErrors = data.errors
 			} else {
@@ -29,7 +29,7 @@ angular.module('imaginationgameApp')
 	}
 	this.registerUser = function(user){
 		console.log(user,"this is what is getting sent");
-		SessionFactory.register(user, function(data){
+		Session.register(user, function(data){
 			if(data.hasOwnProperty('errors')){
 				console.log(data.errors);
 				$ctrl.regErrors = data.errors
@@ -41,7 +41,7 @@ angular.module('imaginationgameApp')
 		})
 	}
 	this.logout = function(){
-		SessionFactory.logout(function(){
+		Session.logout(function(){
 			$location.path('/');
 		});
 	}
