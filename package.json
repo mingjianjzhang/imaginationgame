@@ -50,6 +50,7 @@
     "express-compile-sass": "^3.0.4",
     "express-session": "^1.14.2",
     "mongoose": "^4.7.2",
+    "morgan": "^1.7.0",
     "path": "^0.12.7",
     "request": "^2.79.0"
   }
