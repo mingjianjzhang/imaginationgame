@@ -8,24 +8,26 @@
  * Controller of the imaginationgameApp
  */
 angular.module('imaginationgameApp')
-  .controller('TeamCtrl', ['Marvel', 'ComicVine', 'Team', '$rootScope', '$location', 'setUserTeam', 'includesFilter', function (Marvel, ComicVine, Team, $rootScope, $location, setUserTeam, includesFilter) {
+  .controller('TeamCtrl', ['Session', 'Marvel', 'ComicVine', 'Team', '$rootScope', '$location', 'setUserTeam', 'includesFilter', function (Session, Marvel, ComicVine, Team, $rootScope, $location, setUserTeam, includesFilter) {
   	var $ctrl = this;
-      $rootScope.user = { "_id" : "5850db882dbea25745a2b1d5",
-           "username" : "ettuskitt", 
-      };
+ 
   	this.selectedChar = {
           moves: []
       };
-    
-  	this.newTeam = {
+      Session.getCurrent(function(user){
+        $rootScope.user = user;
+        $ctrl.newTeam = {
           _creator: $rootScope.user._id,
           name: null,
           members: []
-    }
+        }
+      })
+
+
     this.moves = [
       { 
         name: "Punch",
-        type: "Physical",
+        class: "Physical",
         damage: {
           display: "1-3 damage + 1.05 per level",
           min: 0.1,
@@ -37,7 +39,7 @@ angular.module('imaginationgameApp')
       },     
       { 
         name: "Kick",
-        type: "Physical",
+        class: "Physical",
         damage: {
           display: "0-5 damage + 1.05 per level",
           min: 0.1,
@@ -49,7 +51,7 @@ angular.module('imaginationgameApp')
       },      
       { 
         name: "Bad Breath",
-        type: "Magic",
+        class: "Magic",
         damage: {
           display: "1 damage (+ .5 per level) every turn for 5 turns",
           min: 0,
@@ -62,12 +64,16 @@ angular.module('imaginationgameApp')
     ];
 
       if (setUserTeam.setUser) {
-        Team.get($rootScope.user._id, function(data){
-          $ctrl.userTeam = data;
-          $ctrl.selectedChar = $ctrl.userTeam.members[0];
-        })
+        $ctrl.userTeam = $rootScope.newTeam
+        $ctrl.selectedChar
+        // Team.get($rootScope.user._id, function(data){
+        //   $ctrl.userTeam = data;
+        //   $ctrl.selectedChar = $ctrl.userTeam.members[0];
+        // })
       }
-      
+      this.newChar = {
+        moves: []
+      }
 
 
    	this.getCharacter = function(character, api){
@@ -76,15 +82,17 @@ angular.module('imaginationgameApp')
             if( api === "Marvel") {
                 Marvel.getCharacter(character, function(data){
                 		console.log(data);
-                	   if(data.description) {
+                      console.log("here i am setting things up");
+                      console.log(data.name);
                 	   	   $ctrl.newChar.name = data.name;
 	                    $ctrl.newChar.description = data.description;
 	                    $ctrl.newChar.image = data.thumbnail.path + "." + data.thumbnail.extension;
 	                    $ctrl.marvelImage = true;
 	                    $ctrl.completedSearch = true;
-                	   } else {
-                	   	$ctrl.failedSearch = true;
-                	   }
+
+                	   //  else {
+                	   // 	$ctrl.failedSearch = true;
+                	   // }
                 })
             } else {
                 ComicVine.getCharacter(character, function(data){
@@ -113,6 +121,7 @@ angular.module('imaginationgameApp')
     	}
     	this.addToTeam = function() {
     	  $ctrl.newTeam.members.push(angular.copy($ctrl.newChar));
+        console.log($ctrl.newTeam);
       };
       this.removeFromTeam = function(index){
         $ctrl.newTeam.members.splice(index, 1);
@@ -124,14 +133,17 @@ angular.module('imaginationgameApp')
         })
       }
 
+      this.save = function(team){
+          $rootScope.newTeam = team;
+          $location.path('/new_team/moves');
+      }
       this.create = function(team){
         Team.create(team, function(data){
 
         })
-        $location.path('/new_team/moves')
+        $location.path('/dashboard')
       }
       this.selectChar = function(index) {
-        console.log($ctrl.userTeam.members[index]);
         $ctrl.selectedChar = $ctrl.userTeam.members[index];
         $ctrl.filteredMoves = includesFilter($ctrl.moves, $ctrl.selectedChar.moves);
       }
@@ -143,12 +155,14 @@ angular.module('imaginationgameApp')
         })
       }
 
-      this.addMove = function(index) {
-        $ctrl.selectedChar.moves.push($ctrl.moves[index]);
+      this.addMove = function(name) {
+        var move = $ctrl.moves.find(function(element){
+          return element.name == name;
+        })
+        $ctrl.selectedChar.moves.push(move);
         $ctrl.filteredMoves = includesFilter($ctrl.moves, $ctrl.selectedChar.moves);
 
       }
-
      
       this.printTeam = function(){
         console.log($ctrl.userTeam);

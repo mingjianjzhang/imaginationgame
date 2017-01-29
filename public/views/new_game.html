@@ -1,0 +1,14 @@
+<h4> Select a User </h4>
+<div class="list-group">
+	<a href="" class="list-group-item" ng-repeat="user in game.users track by $index" ng-click="game.setOpponent($index)">
+		{{user.username}}
+	</a>
+</div>
+<div ng-show="game.selectedOpponent">
+	<h4> Your opponent: {{game.selectedOpponent.username}} </h4>
+	<div class="form-group">
+		<label> Title of your Game </label>
+		<input type="text" class="form-control" ng-model="game.newGame.name">
+		<button class="btn btn-primary" ng-click="game.createGame(game.newGame)">Create Game </button>
+	</div>
+</div>

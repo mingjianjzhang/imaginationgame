@@ -32,6 +32,7 @@
               <img class="thumb img-responsive" src="{{char.image}}" ng-click="team.selectChar($index)">
           </li>
       </ul>
+      <button class="btn btn-primary" ng-click="team.create(team.userTeam)">Save Team</button>
       <button class="btn btn-primary" ng-click="team.printTeam()">Print Team</button>
       <div class="row">
           <div class="col-md-6">
@@ -42,7 +43,7 @@
           <div class="col-md-6">
               <h3> Available Moves</h3>
               <ul >
-                  <li class="moves" ng-repeat="move in team.filteredMoves track by $index" ng-click="team.addMove($index)"> 
+                  <li class="moves" ng-repeat="move in team.filteredMoves track by move.name" ng-click="team.addMove(move.name)"> 
                   <h5>{{move.name}}</h5>
                   <p class="indented">Type: {{move.type }}</p>
                   <p class="indented">Damage: {{move.damage.display}}</p>

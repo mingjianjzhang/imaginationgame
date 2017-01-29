@@ -17,7 +17,7 @@
 
             <ul class="nav navbar-nav">
               <li><a ng-href="#!/dashboard/">Dashboard</a></li>
-              <li><a ng-href="#!/">Challenge a Friend</a></li>
+              <li><a ng-href="#!/new_game">Challenge a Friend</a></li>
             </ul>
           </div>
         </div>
@@ -46,7 +46,7 @@
 				<h4> Current Team </h4>
 				<div ng-repeat="char in team.newTeam.members track by $index" style="margin-bottom: 30px">
 					<div class="iconic">
-						<img class="img-responsive" src="{{char.image}}" />
+						<img class="img-responsive" ng-src="{{char.image}}" />
 						<button class="btn btn-danger" ng-click="team.removeFromTeam($index)"> Remove </button> 
 					</div>
 					<div class="characterPanel">
@@ -57,7 +57,7 @@
 				<div class="form-group">
 					<label for="teamName">Team Name </label>
 					<input class="form-control" id="teamName" ng-model="team.newTeam.name">
-					<button class="btn btn-primary" ng-click="team.create(team.newTeam)"> Create Team </button>
+					<button class="btn btn-primary" ng-click="team.save(team.newTeam)"> Create Team </button>
 		
 				</div>
 			</div>

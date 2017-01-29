@@ -21,15 +21,14 @@ angular.module('imaginationgameApp')
       console.log("made it to the factory");
       console.log(`https://gateway.marvel.com/v1/public/characters?name=${name}&ts=${ts}&apikey=${publicKey}&hash=${hash}`, "the url");
         $http.get(`https://gateway.marvel.com/v1/public/characters?name=${name}&ts=${ts}&apikey=${publicKey}&hash=${hash}`).then(function(res){
-          console.log(res.data.data.results);
           if (res.data.data.results[0]) {
-            console.log('there were some results');
             callback(res.data.data.results[0]);
-          } else {
-            console.log("there were no results");
-            callback(res.data.data);
-          }
-       
+          } 
+          // else {
+          //   callback(res.data.data);
+          // }
+        }, function(res){
+          console.log("BIG ERRORS");
         })
 
     }

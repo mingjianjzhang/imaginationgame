@@ -10,7 +10,7 @@ var characterSchema = new Schema({
 	moves: [
 		{
 			name: String,
-			type: String,
+			class: String,
 			damage: {
 				display: String,
 				min: Number,

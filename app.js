@@ -76,16 +76,18 @@ var server = app.listen(port, function(){
 	console.log("running on port", port);
 })
 
+// Sockets
 var io = require('socket.io').listen(server);
-
+var messages = [
+  {name: "Henry", message: "You are not a cool person!"},
+  {name: "Frances", message: "Hey, that's not nice, friend"}
+];
 io.sockets.on('connection', function (socket) {
   console.log("WE ARE USING SOCKETS!");
   console.log(socket.id);
-    //all the socket code goes in here!
-  socket.on("button_clicked", function (data){
-    console.log('Someone clicked a button!  Reason: ' + data.reason);
-      socket.emit('server_response', {response: "sockets are the best!"});
-  })
+  socket.emit("pass_messages", { messages: messages });
+
+
 });
 
 

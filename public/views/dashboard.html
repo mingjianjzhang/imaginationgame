@@ -17,7 +17,7 @@
 
             <ul class="nav navbar-nav">
               <li><a ng-href="#!/new_team/characters">Create a Team</a></li>
-              <li><a ng-href="#!/">Challenge a Friend</a></li>
+              <li><a ng-href="#!/new_game">Challenge a Friend</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
 			<li><a href="#!/">Log Out</a></li>
@@ -26,21 +26,12 @@
         </div>
       </div>
     </div>
-<div class="apiSearch">
-	<button class="btn btn-danger" ng-click="dash.setAPI('Marvel')"> Marvel Comics API </button>
-	<button class="btn btn-success" ng-click="dash.setAPI('ComicVine')"> ComicVine API </button>
-	<input type="text" ng-class="{marvelInput: dash.marvelSearch, comicVineInput: dash.comicSearch}" 
- ng-model="dash.character">
-	<button class="btn btn-primary" ng-click="dash.getCharacter(dash.character, dash.api)">Let's Try This Out</button>
-</div>
-<div class="apiSearch">
-
-</div>
-<p>Here's what I got: {{dash.result}}</p>
-<p> Possible image link <img src="{{dash.image}}"></p>
  
+<h2> My Current Team: {{dash.myTeam.name}} </h2>
+<div class="row">
+    <div class="col-md-3" ng-repeat="char in dash.myTeam.members">
+        <h4>{{char.name}}</h4>
+        <img class="thumb img-responsive" ng-src="{{char.image}}" />
+    </div>
 
-<h4> Create a Team</h4>
-<h4> Active Games </h4>
-<h4> Pending Challenges </h4>
-<h4> Challenge a Friend!</h4>
+</div>

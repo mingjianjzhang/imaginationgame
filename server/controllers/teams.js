@@ -19,8 +19,10 @@ module.exports = {
 		var team = new Team(req.body);
 		team.save(function(err, team){
 			if (err) {
+				console.log(err);
 				res.json(err);
 			} else {
+				console.log(team, "we did it".green);
 				res.json(team);
 			}
 		})

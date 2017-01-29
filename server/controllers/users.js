@@ -15,7 +15,7 @@ module.exports = {
 						name: user.name,
 						_id: user._id
 					}
-					res.sendStatus(200);
+					res.send(req.session.user);
 				}
 			})
 		}
@@ -53,13 +53,32 @@ module.exports = {
 		}
 	},
 	getCurrent: function(req, res){
-		User.findOne({_id: req.session.user._id}).exec(function(err, user){
+		//5850db882dbea25745a2b1d5 josh
+		//585380eee810967e36c5fc76 Luann
+		//586ed18c334abbdeaef43bfb Samuel
+		req.session.user = { _id: "5850db882dbea25745a2b1d5"};
+		User
+			.findOne({_id: req.session.user._id})
+			.select("username _id")
+			.exec(function(err, user){
 			if (err) {
 				res.sendStatus(400);
 			} else {
-				res.json({name: user.name, _id: user._id})
+				res.json(user);
 			}
 		})
+	},
+	getAll: function(req, res){
+		User
+			.find({})
+			.select('_id, username')
+			.exec(function(err, users){
+				if(err){
+					res.sendStatus(400);
+				} else {
+					res.json(users)
+				}
+			})
 	},
 	logout: function(req, res){
 		req.session.destroy(function(err){

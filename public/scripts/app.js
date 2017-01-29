@@ -15,7 +15,8 @@ angular
     'ngRoute',
     'angular-md5'
   ])
-  .config(function ($routeProvider) {
+  .config(['$qProvider', '$routeProvider', function ($qProvider, $routeProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
     $routeProvider
       .when('/', {
         templateUrl: 'views/loginreg.html',
@@ -51,23 +52,45 @@ angular
           }
         }
       })
+      .when('/game_room', {
+        templateUrl: 'views/game_room.html',
+        controller: 'GameCtrl',
+        controllerAs: 'game'
+      })
+      .when('/new_game', {
+        templateUrl: 'views/new_game.html',
+        controller: 'GameCtrl',
+        controllerAs: 'game'
+      })
       .otherwise({
         redirectTo: '/'
       });
+  }])
+  .filter('notSelf', function(){
+    return function(currentUser, allUsers){
+      return allUsers.filter(function(user){
+        return !angular.equals(currentUser, user);
+      })
+    }
   })
   .filter('includes', function(){
     return function(baseArray, volatileArray) {
-      console.log("a call is being made to the filter", volatileArray);
       var output = [];
-      if (!volatileArray.length) {
+      var dupes = [];
+      if (!volatileArray) {
         return baseArray;
       }
-      for (var i in baseArray) {
-          for (var j in volatileArray) {
-            if (!angular.equals(baseArray[i], volatileArray[j])) {
-              output.push(baseArray[i]);
-            }
+      for (var i in volatileArray) {
+        for (var j in baseArray){
+          if (angular.equals(volatileArray[i], baseArray[j])) {
+            dupes.push(j);
           }
+        }
+      }
+      for (var k in baseArray) {
+        if (dupes.indexOf(k) == -1) {
+          output.push(baseArray[k]);
+        }
       }
       return output;
     }
