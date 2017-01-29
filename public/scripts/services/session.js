@@ -8,7 +8,7 @@
  * Factory in the imaginationgameApp.
  */
 angular.module('imaginationgameApp')
-  .factory('Session', ['$http', function ($http) {
+  .factory('SessionFactory', ['$http', function ($http) {
     // Service logic
     // ...
       var factory = {};
