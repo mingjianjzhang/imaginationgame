@@ -25,7 +25,13 @@ angular.module('imaginationgameApp')
    } 
  
   factory.myGames = function(id, callback){
+    $http.get(`/games/user/${id}`).then(function(res){
+      callback(res.data);
+    })
+  }
+  factory.fetchGame = function(id, callback){
     $http.get(`/games/${id}`).then(function(res){
+      console.log(res.data);
       callback(res.data);
     })
   }

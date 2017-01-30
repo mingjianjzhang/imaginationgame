@@ -28,5 +28,29 @@ module.exports = {
 					res.json(games);
 				}
 			})
+	},
+	show: function(req, res){
+		Game
+			.findById(req.params.id)
+			.populate({
+				path: 'playerOne._user',
+				select: 'username'
+			})
+			.populate({
+				path: 'playerTwo._user',
+				select: 'username'
+			})
+			.exec(function(err, game){
+				if(err){
+					res.sendStatus(400);
+				} else {
+					res.json(game);
+				}
+			})
 	}
+
+
+
+
+
 } 

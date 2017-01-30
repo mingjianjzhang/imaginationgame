@@ -52,10 +52,10 @@ angular
           }
         }
       })
-      .when('/game_room', {
+      .when('/game_room/:id', {
         templateUrl: 'views/game_room.html',
-        controller: 'GameCtrl',
-        controllerAs: 'game'
+        controller: 'GameRoomCtrl',
+        controllerAs: 'room'
       })
       .when('/new_game', {
         templateUrl: 'views/new_game.html',

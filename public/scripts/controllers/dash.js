@@ -13,14 +13,15 @@ angular.module('imaginationgameApp')
     Session.getCurrent(function(user){
         console.log(user);
         $rootScope.user = user;
-           Team.get($rootScope.user._id, function(team){
-        $ctrl.myTeam = team;
+        Team.get($rootScope.user._id, function(team){
+          $ctrl.myTeam = team;
+        });
+    
+        Game.myGames($rootScope.user._id, function(games){
+          $ctrl.myGames = games;
+        });
     })
     
-    Game.myGames($rootScope.user._id, function(games){
-        console.log(games);
-    })
-    })
 
  
     

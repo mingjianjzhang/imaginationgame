@@ -35,3 +35,7 @@
     </div>
 
 </div>
+<h2> Active Games </h2>
+<div class="list-group">
+  <a class="list-group-item" ng-repeat="game in dash.myGames" href="#!/game_room/{{game._id}}"> {{ game.name }}</a>
+</div>

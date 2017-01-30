@@ -20,8 +20,6 @@ angular.module('imaginationgameApp')
 		})
  	})
 
-  
- 
  	this.setOpponent = function(index){
  		$ctrl.selectedOpponent = $ctrl.users[index];
  		$ctrl.newGame.playerTwo = { _user: $ctrl.selectedOpponent._id }

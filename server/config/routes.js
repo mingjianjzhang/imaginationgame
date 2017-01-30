@@ -13,7 +13,8 @@ module.exports = function(app) {
 	app.post('/teams', teams.create);
 	app.get('/teams/:id', teams.get);
 	app.post('/games', games.createGame);
-	app.get('/games/:user_id', games.myGames);
+	app.get('/games/user/:user_id', games.myGames);
+	app.get('/games/:id', games.show);
 
 	// Socket Routing
 	
