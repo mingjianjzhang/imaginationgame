@@ -56,7 +56,7 @@ module.exports = {
 		//5850db882dbea25745a2b1d5 josh
 		//585380eee810967e36c5fc76 Luann
 		//586ed18c334abbdeaef43bfb Samuel
-		req.session.user = { _id: "5850db882dbea25745a2b1d5"};
+		// req.session.user = { _id: "5850db882dbea25745a2b1d5"};
 		User
 			.findOne({_id: req.session.user._id})
 			.select("username _id")
