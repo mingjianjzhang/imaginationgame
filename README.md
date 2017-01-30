@@ -1,12 +1,14 @@
-# imaginationgame
+# Imagination Game (version 0.0.1)
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.15.1.
+Create teams of your favorite comic book characters and engage in text-based battles with your friends!
 
-## Build & development
+## Current Functionality
 
-Run `grunt` for building and `grunt serve` for preview.
+-- Character selection from the Marvel and Comic Vine APIs.
+-- Basic move selection (Punch, Move, Bad Breath).
+-- Users can challenge other players to a game.
 
-## Testing
+## In Progress for version 0.0.2
+-- Socket.io implementation for games.
 
-Running `grunt test` will run the unit tests with karma.
+
