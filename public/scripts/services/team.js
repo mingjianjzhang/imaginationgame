@@ -16,12 +16,13 @@ angular.module('imaginationgameApp')
         callback(res.data);
       })
     }
-    factory.get = function(id, callback){
+    factory.byUser = function(id, callback){
       console.log(id);
-      $http.get(`/teams/${id}`).then(function(res){
+      $http.get(`/teams/user/${id}`).then(function(res){
         callback(res.data);
       })
     }
+
     return factory;
 
 

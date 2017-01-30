@@ -1,11 +1,20 @@
-<h4> Select a User </h4>
+<h4> Select your Team </h4>
+<ig-team 
+	ng-repeat="team in game.myTeams" 
+	info="team"
+	team-click="game.selectTeam(team)"></ig-team>
+<div class="list-group">
+	<a href="" class="list-group-item" ng-repeat="team in game.myTeams track by $index" ng-click="game.selectTeam($index)">{{team.name}}</a>
+</div>
+<h4> Select your opponent </h4>
 <div class="list-group">
 	<a href="" class="list-group-item" ng-repeat="user in game.users track by $index" ng-click="game.setOpponent($index)">
 		{{user.username}}
 	</a>
 </div>
 <div ng-show="game.selectedOpponent">
-	<h4> Your opponent: {{game.selectedOpponent.username}} </h4>
+	<h4> Your opponent: {{game.selectedOpponent}} </h4>
+	<h4> Your team: {{game.selectedTeam}} </h4>
 	<div class="form-group">
 		<label> Title of your Game </label>
 		<input type="text" class="form-control" ng-model="game.newGame.name">

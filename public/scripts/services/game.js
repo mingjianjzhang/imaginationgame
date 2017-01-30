@@ -14,11 +14,12 @@ angular.module('imaginationgameApp')
 
    factory.createGame = function(game, callback){
       $http.post('/games', game).then(function(res){
-        console.log("Successful Creation");
+        callback(res);
       })
    }
 
    factory.fetchUsers = function(callback){
+      console.log("are we making it here?");
     $http.get('/users').then(function(res){
       callback(res.data);
     })

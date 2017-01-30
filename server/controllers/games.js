@@ -12,7 +12,7 @@ module.exports = {
 				res.sendStatus(200);
 			}
 		})
-	},
+	}, 
 	myGames: function(req, res){
 		Game
 			.find({

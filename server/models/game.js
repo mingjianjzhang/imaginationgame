@@ -3,9 +3,10 @@ var mongoose = require('mongoose'),
 
 var playerSchema = new Schema({
 	_user: { type: Schema.Types.ObjectId, ref: 'User'},
+	_team: {type: Schema.Types.ObjectId, ref: 'Team'},
 	health: { type: Number, default: 100 }
 })
- 
+  
 mongoose.model('Player', playerSchema);
 
 var gameSchema = new Schema({

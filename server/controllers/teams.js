@@ -27,8 +27,8 @@ module.exports = {
 			}
 		})
 	},
-	get: function(req, res){
-		Team.findOne({_creator: req.params.id}, function(err, team){
+	getByUser: function(req, res){
+		Team.find({_creator: req.params.id}, function(err, team){
 			if (err){
 				console.log(err);
 			} else {
