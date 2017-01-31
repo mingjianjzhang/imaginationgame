@@ -20,8 +20,8 @@ var mongoose = require('mongoose'),
 /*
 *  database information
 */
-    dbURI = 'mongodb://localhost/imaginationgame'
-    // dbURI = 'mongodb://heroku_n50804lc:jv0ioo3m328hmpdna7fopmmegs@ds135669.mlab.com:35669/heroku_n50804lc'
+    // dbURI = 'mongodb://localhost/imaginationgame'
+    dbURI = 'mongodb://heroku_n50804lc:jv0ioo3m328hmpdna7fopmmegs@ds135669.mlab.com:35669/heroku_n50804lc'
 /*
 * Connect to the database
 */
