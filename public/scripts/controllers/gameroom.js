@@ -9,10 +9,33 @@
  */
 angular.module('imaginationgameApp')
   .controller('GameRoomCtrl', ['socket', 'Game', 'Session', '$rootScope', '$routeParams', function (socket, Game, Session, $rootScope, $routeParams) {
+
  	var $ctrl = this;
- 	Game.fetchGame($routeParams.id, function(game){
- 		console.log(game);
- 		$ctrl.playerOne = game.playerOne._user.username
- 		$ctrl.playerTwo = game.playerTwo._user.username
+ 	$ctrl.valErrors = [];
+ 	// socket.on('connection', function(){
+ 	// })
+
+ 	Session.getCurrent(function(user){
+ 		Game.fetchGame($routeParams.id, function(game){
+ 			$ctrl.game = game;
+ 			$ctrl.activeUser = user._id == game.playerOne._user._id ? game.playerOne : game.playerTwo;
+ 			$ctrl.opponent = user._id != game.playerOne._user._id ? game.playerOne : game.playerTwo;
+ 			socket.emit("pass_game_id", $routeParams.id);
+ 		})
+ 	})
+
+ 	$ctrl.makeMove = function(message){
+ 		if(message){
+	 		socket.emit("new_move", [ $routeParams.id, {player: $ctrl.activeUser._user.username, message: message}]);
+ 		} else {
+ 			$ctrl.valErrors.push("Please make a move before submitting");
+ 		}
+ 	}
+
+ 	$ctrl.dismissError = function(index){
+ 		$ctrl.valErrors.splice(index, 1);
+ 	};
+ 	socket.on("saved_message", function(game){
+ 		$ctrl.game = game;
  	})
   }]);

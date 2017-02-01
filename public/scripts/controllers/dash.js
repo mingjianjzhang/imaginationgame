@@ -6,6 +6,7 @@
  * # DashctrlCtrl 
  * Controller of the imaginationgameApp
  */
+ 
 angular.module('imaginationgameApp')
   .controller('DashCtrl', ['$rootScope', '$uibModal', 'Marvel', 'ComicVine', 'Team', 'Game', 'Session', function ($rootScope, $uibModal, Marvel, ComicVine, Team, Game, Session) {
 

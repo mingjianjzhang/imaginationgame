@@ -15,8 +15,8 @@ var gameSchema = new Schema({
 	name: {type: String, required: [true, "You must provide a name for your game"]},
 	history: [
 		{
-			player: playerSchema,
-			message: String
+			player: String,
+			message: {type: String, required: [true, "No blank messages allowed!"]}
 		}
 	]
 })

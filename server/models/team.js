@@ -23,7 +23,7 @@ var characterSchema = new Schema({
 
 	]
 })
-
+ 
 mongoose.model('Character', characterSchema);
 
 var teamSchema = new Schema({

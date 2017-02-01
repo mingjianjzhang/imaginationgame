@@ -48,13 +48,29 @@
     <div class="col-sm-4">
     <h2> Outgoing Challenges </h2>
         <ul class="list-group">
-          <li class="list-group-item" ng-repeat="game in dash.myGames.outgoing" href="#!/game_room/{{game._id}}"> {{ game.name }}</li>
+          <li class="list-group-item row" ng-repeat="game in dash.myGames.outgoing"> 
+              <div class="col-sm-8">
+                  {{ game.name }}
+              </div>
+              <div class="col-sm-4">
+                  <button class="btn btn-warning disabled">
+                      Pending
+                  </button>
+              </div>
+          </li>
         </ul>
     </div>
     <div class="col-sm-4">
         <h2> Active Games </h2>
-        <div class="list-group">
-          <a class="list-group-item" ng-repeat="game in dash.myGames.active" href="#!/game_room/{{game._id}}"> {{ game.name }}</a>
-        </div>
+        <ul class="list-group">
+          <li class="list-group-item row" ng-repeat="game in dash.myGames.active" href="#!/game_room/{{game._id}}"> 
+              <div class="col-sm-8">
+                  {{ game.name }}
+              </div>
+              <div class="col-sm-4">
+                  <a class="btn btn-primary" href="#!/game_room/{{game._id}}">Play!</a>
+              </div>
+          </li>
+        </ul>
     </div>
 </div>

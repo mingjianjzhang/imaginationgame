@@ -9,6 +9,7 @@
 angular.module('imaginationgameApp')
   .controller('GameCtrl', ['socket', 'Game', 'Team', 'Session', 'notSelfFilter', '$rootScope', '$location', function (socket, Game, Team, Session, notSelfFilter, $rootScope, $location) {
  	var $ctrl = this;
+ 	$ctrl.valErrors = [];
  	this.newGame = {};
  	Session.getCurrent(function(user){
  		console.log(user);
@@ -30,13 +31,18 @@ angular.module('imaginationgameApp')
  		$ctrl.newGame.playerTwo = { _user: $ctrl.users[index]._id }
  	}
  	this.createGame = function(game) {
- 		Game.createGame(game, function(res){
- 			$location.path('/dashboard');
- 		})
+
+ 		if (!$ctrl.selectedTeam){
+ 			$ctrl.valErrors.push("Please select a team before proceeding");
+ 		} else {
+	 		Game.createGame(game, function(res){
+	 			$location.path('/dashboard');
+	 		})
+ 		}
  	}
- 	socket.on("pass_messages", function(data){
- 		$ctrl.messages = data.messages;
- 		console.log($ctrl.messages, "this should be logging");
- 	})
  	
+ 	$ctrl.dismissError = function(index){
+ 		$ctrl.valErrors.splice(index, 1);
+ 	};
+
   }]);

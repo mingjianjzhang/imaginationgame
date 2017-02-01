@@ -77,18 +77,7 @@ var server = app.listen(port, function(){
 })
 
 // Sockets
-var io = require('socket.io').listen(server);
-var messages = [
-  {name: "Henry", message: "You are not a cool person!"},
-  {name: "Frances", message: "Hey, that's not nice, friend"}
-];
-io.sockets.on('connection', function (socket) {
-  console.log("WE ARE USING SOCKETS!");
-  console.log(socket.id);
-  socket.emit("pass_messages", { messages: messages });
-
-
-});
+var io =  require('./server/config/sockets.js')(server);
 
 
  

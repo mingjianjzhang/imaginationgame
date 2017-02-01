@@ -80,6 +80,7 @@ module.exports = {
 				path: 'playerTwo._user',
 				select: 'username'
 			})
+			.populate( 'playerOne._team playerTwo._team')
 			.exec(function(err, game){
 				if(err){
 					res.sendStatus(400);

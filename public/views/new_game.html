@@ -12,6 +12,7 @@
 <div ng-show="game.selectedOpponent">
 	<h4> Your opponent: {{game.selectedOpponent}} </h4>
 	<h4> Your team: {{game.selectedTeam}} </h4>
+	<div uib-alert ng-repeat="error in game.valErrors track by $index" class="alert-danger" close="game.dismissError($index)">{{error}}</div>
 	<div class="form-group">
 		<label> Title of your Game </label>
 		<input type="text" class="form-control" ng-model="game.newGame.name">
