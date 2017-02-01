@@ -1,0 +1,38 @@
+<div class="modal-header">
+	<div class="modal-title">
+		<div class="row">
+			<div class="col-sm-6">
+				<h3> {{dashModal.game.name}} </h3>
+			</div>
+			<div class="col-sm-6">
+				<h3> Opponent: {{dashModal.game.playerOne._user.username}}</h3>
+			</div>
+		</div>
+		<div class="col-sm-12">
+				<h3> Opponent's Team </h3>
+			<ig-team team="dashModal.game.playerOne._team"></ig-team>
+		</div>
+	</div>
+</div>
+<div class="modal-body">
+
+
+
+	<h3> Choose Your Team </h3>
+	<ig-team
+		ng-repeat="team in dashModal.teams"
+		team-click = "dashModal.selectTeam(team)"
+		team="team"></ig-team>
+
+</div>
+<div class="modal-footer">
+	<div class="row">
+		<div class="col-sm-6">
+			<h5> Enter Battle with: {{dashModal.selectedTeam.name}}</h5>
+		</div>
+		<div class="col-sm-6">
+			<button class="btn btn-primary" ng-class="{ 'disabled': !dashModal.selectedTeam}"  ng-click="dashModal.ok()"> OK </button>
+			<button class="btn btn-warning" type="button" ng-click="dashModal.cancel()"> Cancel </button>
+		</div>
+	</div>
+</div>

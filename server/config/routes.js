@@ -15,6 +15,7 @@ module.exports = function(app) {
 	app.post('/games', games.createGame);
 	app.get('/games/user/:user_id', games.myGames);
 	app.get('/games/:id', games.show);
+	app.put('/game/:id/edit_team', games.editTeam);
 
 	// Socket Routing
 	

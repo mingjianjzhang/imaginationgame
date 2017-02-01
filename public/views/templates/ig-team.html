@@ -1,7 +1,7 @@
 <div class="team-display" ng-click="teamClick()">
-	<h4> {{teamInfo.name}}</h4>
+	<h4> {{team.name}}</h4>
 	<div class="row">
-		<div class="col-md-3" ng-repeat="char in teamInfo.members">
+		<div class="col-md-3" ng-repeat="char in team.members" ng-click="memberClick(char)">
 			<h4> {{char.name}} </h4>
 			<img class="thumb img-responsive" ng-src="{{char.image}}" />
 		</div>

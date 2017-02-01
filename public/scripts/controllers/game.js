@@ -7,7 +7,7 @@
  * Controller of the imaginationgameApp
  */
 angular.module('imaginationgameApp')
-  .controller('GameCtrl', ['socket', 'Game', 'Team', 'Session', 'notSelfFilter', '$rootScope', '$location', function (socket, Game, Team, Session, notSelfFilter, $rootScope) {
+  .controller('GameCtrl', ['socket', 'Game', 'Team', 'Session', 'notSelfFilter', '$rootScope', '$location', function (socket, Game, Team, Session, notSelfFilter, $rootScope, $location) {
  	var $ctrl = this;
  	this.newGame = {};
  	Session.getCurrent(function(user){

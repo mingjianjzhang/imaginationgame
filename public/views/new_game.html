@@ -1,11 +1,8 @@
 <h4> Select your Team </h4>
 <ig-team 
 	ng-repeat="team in game.myTeams" 
-	info="team"
+	team="team"
 	team-click="game.selectTeam(team)"></ig-team>
-<div class="list-group">
-	<a href="" class="list-group-item" ng-repeat="team in game.myTeams track by $index" ng-click="game.selectTeam($index)">{{team.name}}</a>
-</div>
 <h4> Select your opponent </h4>
 <div class="list-group">
 	<a href="" class="list-group-item" ng-repeat="user in game.users track by $index" ng-click="game.setOpponent($index)">

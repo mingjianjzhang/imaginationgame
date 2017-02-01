@@ -10,6 +10,7 @@
 angular.module('imaginationgameApp')
   .controller('TeamCtrl', ['Session', 'Marvel', 'ComicVine', 'Team', '$rootScope', '$location', 'setUserTeam', 'includesFilter', function (Session, Marvel, ComicVine, Team, $rootScope, $location, setUserTeam, includesFilter) {
   	var $ctrl = this;
+
  
   	this.selectedChar = {
           moves: []
@@ -23,6 +24,19 @@ angular.module('imaginationgameApp')
         }
       })
 
+      // this.userTeam = {
+      //     _creator: '588e57e30fabf900041689a8',
+      //     name: null,
+      //     members: [{
+      //       "moves": [],
+      //       "name": "Doctor Strange",
+      //       "description": "Dr. Stephen Strange was once a gifted but egotistical surgeon who sought out the Ancient One to heal his hands after they were wounded in a car accident. Instead, the Ancient One trained him to become Master of the Mystic Arts and the Sorcerer Supreme of Earth.",
+      //       "image": "http://comicvine.gamespot.com/api/image/scale_small/4924094-drstrange003-sale-var-c61ba.jpg",
+      //       "_id": {
+      //           "$oid": "588eb6baaca1d30004f0a181"
+      //       }
+      //     }]
+      //   }
 
     this.moves = [
       { 
@@ -65,11 +79,7 @@ angular.module('imaginationgameApp')
 
       if (setUserTeam.setUser) {
         $ctrl.userTeam = $rootScope.newTeam
-        $ctrl.selectedChar
-        // Team.get($rootScope.user._id, function(data){
-        //   $ctrl.userTeam = data;
-        //   $ctrl.selectedChar = $ctrl.userTeam.members[0];
-        // })
+        $ctrl.selectedChar = $ctrl.userTeam.members[0];
       }
       this.newChar = {
         moves: []
@@ -146,7 +156,13 @@ angular.module('imaginationgameApp')
       this.selectChar = function(index) {
         $ctrl.selectedChar = $ctrl.userTeam.members[index];
         $ctrl.filteredMoves = includesFilter($ctrl.moves, $ctrl.selectedChar.moves);
+      }    
+      this.selectCharT = function(member) {
+        $ctrl.selectedChar = member;
+        $ctrl.filteredMoves = includesFilter($ctrl.moves, $ctrl.selectedChar.moves);
       }
+
+
 
       this.get = function(){
         Team.get($rootScope.user._id, function(data){

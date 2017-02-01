@@ -26,12 +26,15 @@
 
     <div class="container">
 	<h1 class="text-center">Step 2: Give your characters some moves</h1>
-	<h4>{{team.userTeam.name}}</h4>
-      <ul class="characterSelect">
+  <ig-team team = "team.userTeam" member-select="team.selectCharT(member)"></ig-team>	
+
+
+  <!-- <h4>{{team.userTeam.name}}</h4> -->
+<!--       <ul class="characterSelect">
           <li ng-repeat="char in team.userTeam.members track by $index">
               <img class="thumb img-responsive" src="{{char.image}}" ng-click="team.selectChar($index)">
           </li>
-      </ul>
+      </ul> -->
       <button class="btn btn-primary" ng-click="team.create(team.userTeam)">Save Team</button>
       <button class="btn btn-primary" ng-click="team.printTeam()">Print Team</button>
       <div class="row">

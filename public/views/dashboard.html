@@ -10,7 +10,7 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">{{user.username}}'s dashboard</a>
+            <a class="navbar-brand" href="#/">{{dash.user.username}}'s dashboard</a>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
@@ -30,8 +30,31 @@
 <h2> My Teams</h2>
 <ig-team 
   ng-repeat="team in dash.myTeams" 
-  info="team"></ig-team>
-<h2> Active Games </h2>
-<div class="list-group">
-  <a class="list-group-item" ng-repeat="game in dash.myGames" href="#!/game_room/{{game._id}}"> {{ game.name }}</a>
+  team="team"></ig-team>
+<div class="row">
+    <div class="col-sm-4">
+        <h2> Incoming Challenges </h2>
+        <ul class="list-group">
+          <li class="list-group-item row" ng-repeat="game in dash.myGames.incoming">
+              <div class="col-sm-8">
+                  {{ game.name }}
+              </div>
+              <div class="col-sm-4">
+                  <button class="btn btn-success" ng-click="dash.openModal(game)"> Accept </button>
+              </div>
+           </li>
+        </ul>
+    </div>
+    <div class="col-sm-4">
+    <h2> Outgoing Challenges </h2>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="game in dash.myGames.outgoing" href="#!/game_room/{{game._id}}"> {{ game.name }}</li>
+        </ul>
+    </div>
+    <div class="col-sm-4">
+        <h2> Active Games </h2>
+        <div class="list-group">
+          <a class="list-group-item" ng-repeat="game in dash.myGames.active" href="#!/game_room/{{game._id}}"> {{ game.name }}</a>
+        </div>
+    </div>
 </div>

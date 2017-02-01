@@ -12,8 +12,15 @@ angular.module('imaginationgameApp')
       templateUrl: 'views/templates/ig-team.html',
       restrict: 'E',
       scope: {
-      	teamInfo: '=info',
-      	teamClick: '&'
+      	team: '=',
+      	teamClick: '&',
+           memberSelect: '&'
+      },
+      link: function(scope) {
+          scope.memberClick = function(member) {
+               console.log("inside directive scope");
+               scope.memberSelect({member: member});
+          }
       }
     };
   });

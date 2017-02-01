@@ -11,6 +11,7 @@ angular.module('imaginationgameApp')
   .controller('GameRoomCtrl', ['socket', 'Game', 'Session', '$rootScope', '$routeParams', function (socket, Game, Session, $rootScope, $routeParams) {
  	var $ctrl = this;
  	Game.fetchGame($routeParams.id, function(game){
+ 		console.log(game);
  		$ctrl.playerOne = game.playerOne._user.username
  		$ctrl.playerTwo = game.playerTwo._user.username
  	})

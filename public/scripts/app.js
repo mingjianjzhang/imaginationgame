@@ -13,7 +13,8 @@ angular
     'ngAnimate',
     'ngResource',
     'ngRoute',
-    'angular-md5'
+    'angular-md5',
+    'ui.bootstrap'
   ])
   .config(['$qProvider', '$routeProvider', function ($qProvider, $routeProvider) {
     $qProvider.errorOnUnhandledRejections(false);
