@@ -24,7 +24,7 @@ angular.module('imaginationgameApp')
 
  	this.selectTeam = function(team){
  		$ctrl.selectedTeam = team.name
- 		$ctrl.newGame.playerOne._team = team._id
+ 		$ctrl.newGame.playerOne.team = { name: team.name, members: team.members }
  	}
  	this.setOpponent = function(index){
  		$ctrl.selectedOpponent = $ctrl.users[index].username;

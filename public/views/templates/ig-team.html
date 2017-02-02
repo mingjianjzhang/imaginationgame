@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-md-3" ng-repeat="char in team.members" ng-click="memberClick(char)">
 			<h4> {{char.name}} </h4>
-			<img class="thumb img-responsive" ng-src="{{char.image}}" />
+			<img uib-popover-template="'views/templates/team_info_popover.html'" popover-trigger="'mouseenter'" class="thumb img-responsive" ng-src="{{char.image}}" />
 		</div>
-	</div>
+	</div> 
 </div>

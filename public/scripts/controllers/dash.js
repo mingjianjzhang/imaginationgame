@@ -38,7 +38,7 @@ angular.module('imaginationgameApp')
         });
 
         modalInstance.result.then(function(team){
-            Game.setTeam(game._id, team._id, function(res){
+            Game.setTeam(game._id, team, function(res){
                 console.log("Made it back!")
                 Game.myGames($ctrl.user._id, function(games){
                     console.log("resetting games");

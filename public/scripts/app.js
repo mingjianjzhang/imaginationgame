@@ -14,7 +14,8 @@ angular
     'ngResource',
     'ngRoute',
     'angular-md5',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'cfp.hotkeys'
   ])
   .config(['$qProvider', '$routeProvider', function ($qProvider, $routeProvider) {
     $qProvider.errorOnUnhandledRejections(false);

@@ -37,9 +37,9 @@ angular.module('imaginationgameApp')
     })
   }
 
-  factory.setTeam = function(gameID, teamID, callback){
+  factory.setTeam = function(gameID, team, callback){
     console.log("made it to the factory");
-    $http.put(`/game/${gameID}/edit_team`, { teamID: teamID }).then(function(res){
+    $http.put(`/game/${gameID}/edit_team`, { team: team }).then(function(res){
       callback(res);
     })
   }

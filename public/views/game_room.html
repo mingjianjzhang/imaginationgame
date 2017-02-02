@@ -1,28 +1,34 @@
-<div class="container">
-	<div class="row">
-		<div class="col-xs-6">
-			<h2>{{room.activeUser._user.username}}</h2>
-			<ig-team team="room.activeUser._team">
-		</div>
-		<div class="col-xs-6">
-			<h2> {{room.opponent._user.username}} </h2>
-			<ig-team team="room.opponent._team">
-		</div>
-	</div>
-	<div class="box">
-		<div class="message" ng-repeat="message in room.game.history">
-			<p> {{message.player}} says: {{message.message}} </p>
-		</div>
-	</div>
-	<div class="inputs">
-		<form ng-submit="room.makeMove(room.message)">
-			<div uib-alert ng-repeat="error in room.valErrors track by $index" class="alert-danger" close="room.dismissError($index)">{{error}}</div>
-			<div class="form-group">
-				<label for="messages"> Make Your Move! </label>
-				<textarea id="messages" rows="3" class="form-control" ng-model="room.message" />
+	<h2 class="text-center">{{room.game.name}}</h2>
+	<h4 class="text-center"> {{room.activeUser._user.username}} vs. {{room.opponent._user.username}} </h4>
+
+	<div class="row inputs">
+		<div class="col-sm-4">
+			<div class="battle-display">
+				<h4>{{room.activeUser.team.name}}</h4>
+				<ig-battle-team ng-repeat="char in room.activeUser.team.members" character="char" selected="room.isSelected(char.name)" move="room.typedMove"></ig-battle-team>
 			</div>
-			<button type="submit" class="btn btn-primary">Submit </button>
-		</form>
+		</div>
+		<div class="col-sm-4">
+			<div class="box">
+				<div class="message" ng-repeat="message in room.game.history">
+					<p> {{message.player}} says: {{message.message}} </p>
+				</div>
+			</div>
+			<form ng-submit="room.makeMove(room.message)">
+				<div uib-alert ng-repeat="error in room.valErrors track by $index" class="alert-danger" close="room.dismissError($index)">{{error}}</div>
+				<div class="form-group">
+					<label for="messages"> Make Your Move! </label>
+					<textarea ng-keydown="room.select($event)" messages" rows="3" class="form-control" ng-model="room.message" />
+				</div>
+				<button type="submit" class="btn btn-primary"> Submit </button>
+			</form>
+		</div>
+		<div class="col-sm-4">
+			<div class="battle-display">
+				<h4>{{room.opponent.team.name}}</h4>
+				<ig-battle-team ng-repeat="char in room.opponent.team.members" character="char" selected="room.isSelected(char.name)"></ig-battle-team>
+			</div>
+		</div>
 	</div>
 
-</div>
+

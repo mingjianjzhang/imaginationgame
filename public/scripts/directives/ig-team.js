@@ -10,11 +10,11 @@ angular.module('imaginationgameApp')
   .directive('igTeam', function () {
     return {
       templateUrl: 'views/templates/ig-team.html',
-      restrict: 'E',
+      restrict: 'E', 
       scope: {
       	team: '=',
       	teamClick: '&',
-           memberSelect: '&'
+           memberSelect: '&' 
       },
       link: function(scope) {
           scope.memberClick = function(member) {

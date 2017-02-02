@@ -4,7 +4,9 @@ var Player = mongoose.model('Player');
 module.exports = {
 	createGame: function(req, res) {
 		console.log("about to create a game".cyan);
+		console.log(req.body); 
 		var game = new Game(req.body);
+		console.log(game);
 		game.save(function(err, game){
 			if (err) {
 				res.json(err);
@@ -29,12 +31,6 @@ module.exports = {
 				path: 'playerTwo._user',
 				select: 'username _id'
 			})
-			.populate({
-				path: 'playerOne._team'
-			})
-			.populate({
-				path: 'playerTwo._team'
-			})
 			.exec(function(err, games){
 				if(err){
 					res.sendStatus(400);
@@ -49,7 +45,7 @@ module.exports = {
 						// console.log("this is the id", req.params.user_id)
 						// console.log(game.playerOne._user);
 						if (game.playerOne._user._id == req.params.user_id) {
-							if (game.playerTwo._team) {
+							if (game.playerTwo.team.name) {
 								package.active.push(game);
 							} else {
 								package.outgoing.push(game);
@@ -57,7 +53,7 @@ module.exports = {
 						};
 
 						if (game.playerTwo._user._id == req.params.user_id) {
-							if (game.playerTwo._team) {
+							if (game.playerTwo.team.name) {
 								package.active.push(game);
 							} else {
 								package.incoming.push(game);
@@ -91,7 +87,7 @@ module.exports = {
 	},
 	editTeam: function(req, res){
 		Game
-			.findByIdAndUpdate( req.params.id , { $set: { 'playerTwo._team': req.body.teamID}}, { new: 'true' }, function(err, game){
+			.findByIdAndUpdate( req.params.id , { $set: { 'playerTwo.team': req.body.team}}, { new: 'true' }, function(err, game){
 				console.log(game);
 				res.sendStatus(200);
 			})
