@@ -27,6 +27,12 @@ angular.module('imaginationgameApp')
  			return $ctrl.typedMove;
  		}
  	}
+ 	function resetGame(){
+ 		console.log('is this working?');
+ 		$ctrl.typedMove = '';
+ 		$ctrl.typedOpponent = '';
+ 		$ctrl.typedName = '';
+ 	}
  	// socket.on('connection', function(){
  	// })
  	hotkeys.bindTo($scope)
@@ -88,6 +94,7 @@ angular.module('imaginationgameApp')
  		if(message){
  			$ctrl.message = '';
 	 		socket.emit("new_move", [ $routeParams.id, {player: $ctrl.activeUser._user.username, message: message}]);
+	 		resetGame();
 	 		// $ctrl.opponent.team.members[0].health -= 10;
  		} else {
  			$ctrl.valErrors.push("Please make a move before submitting");
@@ -95,7 +102,10 @@ angular.module('imaginationgameApp')
  	}
 
  	$ctrl.isSelected = function(name){
- 		return name.toUpperCase() == $ctrl.typedName.toUpperCase() || name.toUpperCase() == $ctrl.typedOpponent.toUpperCase();
+
+ 		if (name) {
+	 		return name.toUpperCase() == $ctrl.typedName.toUpperCase() || name.toUpperCase() == $ctrl.typedOpponent.toUpperCase();
+ 		}
  	}
  	$ctrl.select = function(event){
 ;
