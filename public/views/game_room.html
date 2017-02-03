@@ -16,12 +16,14 @@
 			</div>
 			<form ng-submit="room.makeMove(room.message)">
 				<div uib-alert ng-repeat="error in room.valErrors track by $index" class="alert-danger" close="room.dismissError($index)">{{error}}</div>
+				<div uib-alert ng-repeat="alert in room.gameAlerts track by $index" ng-class="alert.type" close="room.dismissAlert($index)">{{alert.msg}} {{room.returnRightInput()}}</div>
 				<div class="form-group">
 					<label for="messages"> Make Your Move! </label>
 					<textarea ng-keydown="room.select($event)" messages" rows="3" class="form-control" ng-model="room.message" />
 				</div>
 				<button type="submit" class="btn btn-primary"> Submit </button>
 			</form>
+
 		</div>
 		<div class="col-sm-4">
 			<div class="battle-display">
@@ -29,6 +31,20 @@
 				<ig-battle-team ng-repeat="char in room.opponent.team.members" character="char" selected="room.isSelected(char.name)"></ig-battle-team>
 			</div>
 		</div>
+	</div>
+	<div>
+		<h2> Interacting with the game</h2>
+			<p> This version of the imagination game relies on pressing certain keyboard shortcuts to select characters and choose moves: </p>
+			<p class="alert alert-danger">PLEASE NOTE: When pressing shortcuts, make sure that you are not focused on the textarea. To ensure that things work smoothly, first click on the blue game screen before pressing any shortcuts</p>
+			<ol>
+				<li>To select a character from YOUR team, press alt+left-arrow at the same time and type in your character's name. If typed correctly, you should see a red border appear around your character's image. To confirm your selection, press alt+left-arrow again</li>
+				<li> In order to select a move, you must first have chosen a character. Press alt+down-arrow to select a move. If typed correctly, the move should turn blue in the movelist next to your character. To confirm your selection, press alt+down-arrow again.
+				</li>
+				<li> You may select your opponent at any time by pressing alt+right-arrow. Just as with your own character, a red border should appear around the corresponding character's image. To confirm your selection, press alt+right-arrow again </li>
+			</ol>
+			<h2> Sample Move (shortcuts are written in brackets</h2>
+			<p> [alt+left-arrow] Doctor Strange [alt+left-arrow] delivers a fierce [alt+right-arrow] KICK [alt+right-arrow] to the already almost dead [alt+right-arrow] Batman [alt + right-arrow] </p>
+			<p> After typing the above, you should see Doctor Strange, his "kick" move, and Superman's character highlighted </p>
 	</div>
 
 

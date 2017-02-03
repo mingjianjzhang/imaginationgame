@@ -15,6 +15,18 @@ angular.module('imaginationgameApp')
  	$ctrl.typedMove = '';
  	$ctrl.typedOpponent = '';
  	$ctrl.selectingOwnChar = false;
+ 	$ctrl.gameAlerts = [];
+ 	$ctrl.returnRightInput= function(){
+ 		if ($ctrl.selectingOwnChar){
+	 		return $ctrl.typedName;
+ 		}
+ 		if ($ctrl.selectingOpponent){
+ 			return $ctrl.typedOpponent;
+ 		}
+ 		if ($ctrl.selectingMove){
+ 			return $ctrl.typedMove;
+ 		}
+ 	}
  	// socket.on('connection', function(){
  	// })
  	hotkeys.bindTo($scope)
@@ -23,7 +35,13 @@ angular.module('imaginationgameApp')
 		      description: 'blah blah',
 		      callback: function() {
 		      	$ctrl.selectingOwnChar = $ctrl.selectingOwnChar ? false : true
-		      	console.log($ctrl.selectingOwnChar);
+		      	if ($ctrl.selectingOwnChar){
+		      		console.log("made it here");
+		      		$ctrl.gameAlerts.push({id: "selectingChar", type: "alert-warning", msg: "Selecting character...", input: '$ctrl.typedName'});
+		      	} else if (!$ctrl.selectingOwnChar && $ctrl.typedName && $ctrl.gameAlerts.length) {
+		      		$ctrl.gameAlerts[0].type = 'alert-success';
+		      		$ctrl.gameAlerts[0].msg = 'Hope you meant to select' + $ctrl.typedName; 
+		      	}
 		      }
 		})
 		.add({
@@ -32,6 +50,13 @@ angular.module('imaginationgameApp')
 		      callback: function() {
 		      	$ctrl.selectingOpponent = $ctrl.selectingOpponent ? false : true
 		    		console.log($ctrl.selectingOpponent);
+		    		if ($ctrl.selectingOpponent){
+		      		console.log("made it here");
+		      		$ctrl.gameAlerts.push({id: "selectingChar", type: "alert-warning", msg: "Selecting opponent..."});
+		      	} else if (!$ctrl.selectingOpponent && $ctrl.typedOpponent && $ctrl.gameAlerts.length) {
+		      		$ctrl.gameAlerts[0].type = 'alert-success';
+		      		$ctrl.gameAlerts[0].msg = 'Hope you meant to select ' + $ctrl.typedOpponent;
+		      	}
 		      }
 		})
 		.add({
@@ -40,6 +65,13 @@ angular.module('imaginationgameApp')
 		      callback: function() {
 		      	$ctrl.selectingMove = $ctrl.selectingMove ? false : true
 		      	console.log("selecting move!");
+		      	if ($ctrl.selectingMove){
+		      		console.log("made it here");
+		      		$ctrl.gameAlerts.push({id: "selectingChar", type: "alert-warning", msg: "Selecting move...", input: '$ctrl.typedName'});
+		      	} else if (!$ctrl.selectingMove && $ctrl.typedMove && $ctrl.gameAlerts.length) {
+		      		$ctrl.gameAlerts[0].type = 'alert-success';
+		      		$ctrl.gameAlerts[0].msg = 'Hope you meant to select ' + $ctrl.typedMove 
+		      	}
 		      }
 		})
  	Session.getCurrent(function(user){
@@ -50,6 +82,7 @@ angular.module('imaginationgameApp')
  			socket.emit("pass_game_id", $routeParams.id);
  		})
  	})
+ 	
 
  	$ctrl.makeMove = function(message){
  		if(message){
@@ -104,6 +137,9 @@ angular.module('imaginationgameApp')
  	$ctrl.dismissError = function(index){
  		$ctrl.valErrors.splice(index, 1);
  	};
+ 	$ctrl.dismissAlert = function(index){
+ 		$ctrl.gameAlerts.splice(index, 1);
+ 	}
  	socket.on("saved_message", function(game){
  		$ctrl.game = game;
  	})
